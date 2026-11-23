@@ -1,16 +1,30 @@
-## Hi there 👋
+# v1r3s.github.io 🌸
 
-<!--
-**V1R3S/v1r3s** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+My personal link page, live at **[v1r3s.github.io](https://v1r3s.github.io)**.
+One place for all my socials, plus my latest YouTube video, updated automatically.
 
-Here are some ideas to get you started:
+## Features
+- 🔗 Links to YouTube, TikTok, Instagram, X, Twitch and GitHub
+- ▶️ **Auto-updating "latest video" card**: a GitHub Action checks my YouTube feed every 6 hours and updates the page
+- 🎨 Custom scrapbook design: blurred banner background, falling petal animation, press-down buttons
+- 📱 Responsive: built mobile-first, works on any screen
+- ♿ Respects "reduced motion" settings
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+## How it works
+| File | What it does |
+|---|---|
+| `index.html` | The whole page: HTML, CSS and JavaScript in one file |
+| `bg.png`, `avatar.png` | Background banner and profile picture |
+| `latest.json` | My newest video ID, written by the GitHub Action |
+| `.github/workflows/latest-video.yml` | The Action: reads my channel's RSS feed and commits `latest.json` when there's a new video |
+
+The page reads `latest.json` on load and shows the matching thumbnail and link.
+
+## Built with
+HTML · CSS · JavaScript · GitHub Pages · GitHub Actions · Python
+
+## Run it locally
+Clone the repo and open `index.html` in a browser. That's it, no build step.
+
+---
+Made with ♡ by [Khaled Alkhawaldeh](https://github.com/V1R3S) (v1r3s)
