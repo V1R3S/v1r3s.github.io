@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>v1r3s · links</title>
+<meta name="description" content="v1r3s (Virus) — software engineering student learning ML in public. Tutorials, projects and socials.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@500;700;800&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink: #f27a9b;
+    --pink-deep: #d9577d;
+    --blush: #fde4ec;
+    --cream: #fffaf5;
+    --paper: #fff6f1;
+    --ink: #5b3442;
+    --ink-soft: #9a6b7a;
+    --sky: #cfe8f7;
+    --line: rgba(217, 87, 125, .18);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    min-height: 100vh;
+    font-family: "Nunito", system-ui, sans-serif;
+    color: var(--ink);
+    background:
+      radial-gradient(circle at 15% 10%, rgba(255,255,255,.9) 0 8%, transparent 30%),
+      radial-gradient(circle at 85% 20%, var(--sky) 0, transparent 40%),
+      radial-gradient(circle at 10% 90%, #ffd3df 0, transparent 45%),
+      linear-gradient(160deg, #fde9f0 0%, #fbe0ea 45%, #f8d4e1 100%);
+    background-attachment: fixed;
+    overflow-x: hidden;
+  }
+
+  /* falling petals */
+  .petals { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+  .petal {
+    position: absolute; top: -40px;
+    width: 14px; height: 11px;
+    background: linear-gradient(135deg, #ffc4d4, #f59ab4);
+    border-radius: 80% 0 80% 0;
+    opacity: .75;
+    animation: fall linear infinite;
+  }
+  @keyframes fall {
+    0%   { transform: translate(0, -40px) rotate(0deg); }
+    50%  { transform: translate(40px, 50vh) rotate(180deg); }
+    100% { transform: translate(-20px, 105vh) rotate(360deg); }
+  }
+  @media (prefers-reduced-motion: reduce) { .petal { display: none; } }
+
+  .wrap {
+    position: relative; z-index: 1;
+    max-width: 520px; margin: 0 auto;
+    padding: 110px 18px 40px;
+  }
+
+  /* paper card */
+  .card {
+    position: relative;
+    background:
+      linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 100% 26px,
+      linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 26px 100%,
+      var(--paper);
+    border-radius: 22px;
+    padding: 70px 22px 26px;
+    box-shadow: 0 18px 40px -18px rgba(150, 50, 80, .35), 0 2px 0 rgba(255,255,255,.8) inset;
+  }
+  .tape {
+    position: absolute; top: -12px; width: 92px; height: 26px;
+    background: repeating-linear-gradient(45deg, rgba(255,255,255,.75) 0 6px, rgba(242,122,155,.45) 6px 12px);
+    box-shadow: 0 2px 4px rgba(0,0,0,.06);
+  }
+  .tape.l { left: 22px; transform: rotate(-8deg); }
+  .tape.r { right: 22px; transform: rotate(7deg); }
+
+  /* avatar */
+  .avatar {
+    position: absolute; left: 50%; top: 0;
+    width: 112px; height: 112px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #fff 0, var(--blush) 55%, #f9c5d5 100%);
+    border: 5px solid #fff;
+    box-shadow: 0 10px 24px -8px rgba(217, 87, 125, .55);
+    display: grid; place-items: center;
+    overflow: hidden;
+  }
+  .avatar span {
+    font-family: "Fredoka", sans-serif; font-weight: 700;
+    font-size: 52px; color: var(--pink-deep);
+    line-height: 1; margin-top: -4px;
+  }
+  .avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+  .bow {
+    position: absolute; left: 50%; top: -66px; transform: translateX(-50%);
+    width: 64px; z-index: 2;
+  }
+
+  h1 {
+    font-family: "Fredoka", sans-serif;
+    font-weight: 700;
+    font-size: 46px;
+    text-align: center;
+    color: var(--pink);
+    letter-spacing: .5px;
+    text-shadow: 3px 3px 0 #fff, 5px 5px 0 rgba(217, 87, 125, .18);
+  }
+  .aka {
+    text-align: center;
+    font-family: "Caveat", cursive;
+    font-size: 24px;
+    color: var(--ink-soft);
+    margin-top: -2px;
+  }
+  .bio {
+    text-align: center;
+    font-size: 15.5px;
+    line-height: 1.55;
+    margin: 14px auto 0;
+    max-width: 380px;
+  }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 14px; }
+  .tag {
+    font-size: 12.5px; font-weight: 800;
+    padding: 5px 11px; border-radius: 99px;
+    background: #fff; color: var(--pink-deep);
+    border: 1.5px dashed rgba(217, 87, 125, .45);
+  }
+
+  .section-label {
+    font-family: "Caveat", cursive;
+    font-size: 26px; color: var(--pink-deep);
+    margin: 28px 4px 10px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::after { content: ""; flex: 1; height: 2px; background: repeating-linear-gradient(90deg, rgba(217,87,125,.4) 0 6px, transparent 6px 12px); }
+
+  /* featured */
+  .featured {
+    display: block; text-decoration: none; color: inherit;
+    background: #fff; padding: 10px 10px 14px; border-radius: 6px;
+    box-shadow: 0 10px 24px -14px rgba(120, 40, 70, .45);
+    transform: rotate(-1.2deg);
+    transition: transform .2s ease;
+  }
+  .featured:hover, .featured:focus-visible { transform: rotate(0) scale(1.015); }
+  .thumb {
+    aspect-ratio: 16 / 9; border-radius: 3px;
+    background: linear-gradient(135deg, #2a2236, #3b2b44);
+    display: grid; place-items: center; position: relative; overflow: hidden;
+  }
+  .thumb::before {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(circle at 70% 30%, rgba(242,122,155,.45), transparent 55%);
+  }
+  .play {
+    width: 58px; height: 58px; border-radius: 50%;
+    background: rgba(255,255,255,.92); display: grid; place-items: center; position: relative;
+  }
+  .play::after { content: ""; border-left: 18px solid var(--pink-deep); border-top: 11px solid transparent; border-bottom: 11px solid transparent; margin-left: 5px; }
+  .featured p { font-family: "Caveat", cursive; font-size: 23px; text-align: center; margin-top: 8px; }
+
+  /* links */
+  .links { display: grid; gap: 12px; }
+  .link {
+    display: flex; align-items: center; gap: 14px;
+    text-decoration: none; color: var(--ink);
+    background: #fff;
+    border-radius: 16px;
+    padding: 13px 16px;
+    border: 2px solid #fff;
+    box-shadow: 0 6px 0 #f6c3d3, 0 10px 18px -10px rgba(150, 50, 80, .4);
+    transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+  }
+  .link:hover, .link:focus-visible {
+    transform: translateY(-2px);
+    border-color: var(--pink);
+    box-shadow: 0 8px 0 #f2a9bf, 0 14px 22px -10px rgba(150, 50, 80, .45);
+    outline: none;
+  }
+  .link:active { transform: translateY(3px); box-shadow: 0 2px 0 #f6c3d3; }
+  .ico {
+    flex: none; width: 42px; height: 42px; border-radius: 12px;
+    display: grid; place-items: center;
+    background: var(--blush); color: var(--pink-deep);
+  }
+  .ico svg { width: 22px; height: 22px; }
+  .txt { flex: 1; min-width: 0; }
+  .txt b { display: block; font-size: 16px; font-weight: 800; }
+  .txt small { display: block; font-size: 13px; color: var(--ink-soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .arrow { color: var(--pink); font-weight: 800; font-size: 20px; }
+
+  footer {
+    text-align: center; margin-top: 26px;
+    font-family: "Caveat", cursive; font-size: 21px; color: var(--ink-soft);
+  }
+  footer .heart { color: var(--pink); }
+</style>
+</head>
+<body>
+
+<div class="petals" aria-hidden="true" id="petals"></div>
+
+<main class="wrap">
+  <section class="card">
+    <div class="tape l" aria-hidden="true"></div>
+    <div class="tape r" aria-hidden="true"></div>
+
+    <svg class="bow" viewBox="0 0 64 34" aria-hidden="true">
+      <path d="M32 17 C22 2, 4 2, 6 14 C8 26, 24 22, 32 17Z" fill="#f59ab4" stroke="#d9577d" stroke-width="1.5"/>
+      <path d="M32 17 C42 2, 60 2, 58 14 C56 26, 40 22, 32 17Z" fill="#f59ab4" stroke="#d9577d" stroke-width="1.5"/>
+      <path d="M30 18 L22 33 M34 18 L42 33" stroke="#d9577d" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="32" cy="17" r="5" fill="#f27a9b" stroke="#d9577d" stroke-width="1.5"/>
+    </svg>
+
+    <!-- To use your own picture: replace <span>v</span> with <img src="avatar.png" alt="v1r3s"> -->
+    <div class="avatar"><span>v</span></div>
+
+    <h1>v1r3s</h1>
+    <p class="aka">a.k.a. Virus ♡</p>
+    <p class="bio">Software engineering student learning machine learning in public. Tutorials, projects, and the whole journey on YouTube.</p>
+    <div class="tags">
+      <span class="tag">machine learning</span>
+      <span class="tag">tutorials</span>
+      <span class="tag">software eng</span>
+    </div>
+
+    <h2 class="section-label">latest video</h2>
+    <!-- Put your newest video link in href -->
+    <a class="featured" href="https://www.youtube.com/@iV1R3S" target="_blank" rel="noopener">
+      <div class="thumb"><div class="play"></div></div>
+      <p>new episode — watch now ♡</p>
+    </a>
+
+    <h2 class="section-label">find me</h2>
+    <nav class="links">
+      <!-- Replace each href with your real link -->
+      <a class="link" href="https://www.youtube.com/@iV1R3S" target="_blank" rel="noopener">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg></span>
+        <span class="txt"><b>YouTube</b><small>tutorials · Virus</small></span>
+        <span class="arrow">›</span>
+      </a>
+      <a class="link" href="https://www.tiktok.com/@iiv1r3s" target="_blank" rel="noopener">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 18a3 3 0 1 1 0-6M9 18V4h4a4 4 0 0 0 4 4"/></svg></span>
+        <span class="txt"><b>TikTok</b><small>short clips</small></span>
+        <span class="arrow">›</span>
+      </a>
+      <a class="link" href="https://www.instagram.com/iv1r3s/" target="_blank" rel="noopener">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.6"/><circle cx="17" cy="7" r="1" fill="currentColor" stroke="none"/></svg></span>
+        <span class="txt"><b>Instagram</b><small>behind the scenes</small></span>
+        <span class="arrow">›</span>
+      </a>
+      <a class="link" href="https://x.com/iiv1r3s" target="_blank" rel="noopener">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg></span>
+        <span class="txt"><b>X</b><small>thoughts &amp; updates</small></span>
+        <span class="arrow">›</span>
+      </a>
+      <a class="link" href="https://www.twitch.tv/iv1r3s" target="_blank" rel="noopener">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M5 4h15v10l-4 4h-4l-3 3v-3H5z"/><path d="M11 8v4M15 8v4" stroke-linecap="round"/></svg></span>
+        <span class="txt"><b>Twitch</b><small>live sessions</small></span>
+        <span class="arrow">›</span>
+      </a>
+      <a class="link" href="https://github.com/KhaledAlkhawaldeh" target="_blank" rel="noopener">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 8l-4 4 4 4M16 8l4 4-4 4M13.5 5l-3 14"/></svg></span>
+        <span class="txt"><b>GitHub</b><small>Khaled Alkhawaldeh · code &amp; projects</small></span>
+        <span class="arrow">›</span>
+      </a>
+    </nav>
+
+    <footer>made with <span class="heart">♡</span> by v1r3s</footer>
+  </section>
+</main>
+
+<script>
+  (function () {
+    var box = document.getElementById('petals');
+    if (!box) return;
+    for (var i = 0; i < 16; i++) {
+      var p = document.createElement('span');
+      p.className = 'petal';
+      p.style.left = (Math.random() * 100) + 'vw';
+      p.style.animationDuration = (9 + Math.random() * 9) + 's';
+      p.style.animationDelay = (-Math.random() * 18) + 's';
+      var s = 0.6 + Math.random() * 0.8;
+      p.style.width = (14 * s) + 'px';
+      p.style.height = (11 * s) + 'px';
+      box.appendChild(p);
+    }
+  })();
+</script>
+</body>
+</html>
