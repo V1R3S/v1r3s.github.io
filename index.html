@@ -35,15 +35,15 @@
     overflow-x: hidden;
   }
 
-  /* blurred banner background: upload your image to the repo as bg.jpg */
+  /* blurred banner background: upload your image to the repo as bg.png or bg.jpg */
   body::before {
     content: ""; position: fixed; inset: -40px; z-index: -2;
-    background: url("bg.png") center / cover no-repeat;
-    filter: blur(12px) saturate(1.1);
+    background: url("bg.jpg") center / cover no-repeat, url("bg.png") center / cover no-repeat;
+    filter: blur(6px) saturate(1.1);
   }
   body::after {
     content: ""; position: fixed; inset: 0; z-index: -1;
-    background: rgba(255, 238, 244, .35);
+    background: rgba(255, 238, 244, .15);
   }
 
   /* falling petals */
@@ -224,8 +224,8 @@
     <div class="tape r" aria-hidden="true"></div>
 
 
-    <!-- Upload your picture to the repo as avatar.png. If it's missing, the "v" shows instead. -->
-    <div class="avatar"><span>v</span><img src="avatar.png" alt="v1r3s" onerror="this.remove()"></div>
+    <!-- Upload your picture to the repo as avatar.png or avatar.jpg. If it's missing, the "v" shows instead. -->
+    <div class="avatar"><span>v</span><img src="avatar.png" alt="v1r3s" onerror="if(!this.dataset.t){this.dataset.t=1;this.src='avatar.jpg'}else{this.remove()}"></div>
 
     <h1>v1r3s</h1>
     <p class="aka">a.k.a. Virus ♡</p>
@@ -283,17 +283,21 @@
 </main>
 
 <script>
-  // ▶ LATEST VIDEO: paste the ID of your newest video between the quotes.
-  //   For https://www.youtube.com/watch?v=abc123XYZ the ID is abc123XYZ
-  //   Leave it empty ("") to hide the section.
+  // ▶ LATEST VIDEO
+  //   Updated automatically: a GitHub Action writes your newest video into latest.json.
+  //   Backup: if latest.json is missing, the ID below is used ("" hides the section).
   var LATEST_VIDEO_ID = "";
 
-  (function () {
-    if (!LATEST_VIDEO_ID) return;
-    document.getElementById('latest-link').href = 'https://www.youtube.com/watch?v=' + LATEST_VIDEO_ID;
-    document.getElementById('latest-thumb').src = 'https://i.ytimg.com/vi/' + LATEST_VIDEO_ID + '/hqdefault.jpg';
+  function showLatest(id) {
+    if (!id) return;
+    document.getElementById('latest-link').href = 'https://www.youtube.com/watch?v=' + id;
+    document.getElementById('latest-thumb').src = 'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg';
     document.getElementById('latest').hidden = false;
-  })();
+  }
+  fetch('latest.json?t=' + Date.now())
+    .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+    .then(function (d) { showLatest(d.id || LATEST_VIDEO_ID); })
+    .catch(function () { showLatest(LATEST_VIDEO_ID); });
 
   (function () {
     var box = document.getElementById('petals');
