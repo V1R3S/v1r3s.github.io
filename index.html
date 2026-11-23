@@ -14,7 +14,7 @@
     --pink-deep: #d9577d;
     --blush: #fde4ec;
     --cream: #fffaf5;
-    --paper: #fff6f1;
+    --paper: rgba(255, 246, 241, .82);
     --ink: #5b3442;
     --ink-soft: #9a6b7a;
     --sky: #cfe8f7;
@@ -33,6 +33,17 @@
       linear-gradient(160deg, #fde9f0 0%, #fbe0ea 45%, #f8d4e1 100%);
     background-attachment: fixed;
     overflow-x: hidden;
+  }
+
+  /* blurred banner background: upload your image to the repo as bg.jpg */
+  body::before {
+    content: ""; position: fixed; inset: -40px; z-index: -2;
+    background: url("bg.jpg") center / cover no-repeat;
+    filter: blur(16px) saturate(1.1);
+  }
+  body::after {
+    content: ""; position: fixed; inset: 0; z-index: -1;
+    background: rgba(255, 238, 244, .35);
   }
 
   /* falling petals */
@@ -55,7 +66,7 @@
   .wrap {
     position: relative; z-index: 1;
     max-width: 520px; margin: 0 auto;
-    padding: 110px 18px 40px;
+    padding: 105px 18px 40px;
   }
 
   /* paper card */
@@ -66,7 +77,9 @@
       linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 26px 100%,
       var(--paper);
     border-radius: 22px;
-    padding: 70px 22px 26px;
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    padding: 92px 22px 26px;
     box-shadow: 0 18px 40px -18px rgba(150, 50, 80, .35), 0 2px 0 rgba(255,255,255,.8) inset;
   }
   .tape {
@@ -80,7 +93,7 @@
   /* avatar */
   .avatar {
     position: absolute; left: 50%; top: 0;
-    width: 112px; height: 112px;
+    width: 150px; height: 150px;
     transform: translate(-50%, -50%);
     border-radius: 50%;
     background: radial-gradient(circle at 35% 30%, #fff 0, var(--blush) 55%, #f9c5d5 100%);
@@ -89,17 +102,14 @@
     display: grid; place-items: center;
     overflow: hidden;
   }
+  .avatar { z-index: 2; }
   .avatar span {
     font-family: "Fredoka", sans-serif; font-weight: 700;
     font-size: 52px; color: var(--pink-deep);
     line-height: 1; margin-top: -4px;
   }
-  .avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .avatar img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 
-  .bow {
-    position: absolute; left: 50%; top: -66px; transform: translateX(-50%);
-    width: 64px; z-index: 2;
-  }
 
   h1 {
     font-family: "Fredoka", sans-serif;
@@ -154,6 +164,7 @@
     background: linear-gradient(135deg, #2a2236, #3b2b44);
     display: grid; place-items: center; position: relative; overflow: hidden;
   }
+  .thumb .play { z-index: 1; }
   .thumb::before {
     content: ""; position: absolute; inset: 0;
     background: radial-gradient(circle at 70% 30%, rgba(242,122,155,.45), transparent 55%);
@@ -163,6 +174,7 @@
     background: rgba(255,255,255,.92); display: grid; place-items: center; position: relative;
   }
   .play::after { content: ""; border-left: 18px solid var(--pink-deep); border-top: 11px solid transparent; border-bottom: 11px solid transparent; margin-left: 5px; }
+  .thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   .featured p { font-family: "Caveat", cursive; font-size: 23px; text-align: center; margin-top: 8px; }
 
   /* links */
@@ -211,15 +223,9 @@
     <div class="tape l" aria-hidden="true"></div>
     <div class="tape r" aria-hidden="true"></div>
 
-    <svg class="bow" viewBox="0 0 64 34" aria-hidden="true">
-      <path d="M32 17 C22 2, 4 2, 6 14 C8 26, 24 22, 32 17Z" fill="#f59ab4" stroke="#d9577d" stroke-width="1.5"/>
-      <path d="M32 17 C42 2, 60 2, 58 14 C56 26, 40 22, 32 17Z" fill="#f59ab4" stroke="#d9577d" stroke-width="1.5"/>
-      <path d="M30 18 L22 33 M34 18 L42 33" stroke="#d9577d" stroke-width="3" stroke-linecap="round"/>
-      <circle cx="32" cy="17" r="5" fill="#f27a9b" stroke="#d9577d" stroke-width="1.5"/>
-    </svg>
 
-    <!-- To use your own picture: replace <span>v</span> with <img src="avatar.png" alt="v1r3s"> -->
-    <div class="avatar"><span>v</span></div>
+    <!-- Upload your picture to the repo as avatar.png. If it's missing, the "v" shows instead. -->
+    <div class="avatar"><span>v</span><img src="avatar.png" alt="v1r3s" onerror="this.remove()"></div>
 
     <h1>v1r3s</h1>
     <p class="aka">a.k.a. Virus ♡</p>
@@ -230,44 +236,44 @@
       <span class="tag">software eng</span>
     </div>
 
-    <h2 class="section-label">latest video</h2>
-    <!-- Put your newest video link in href -->
-    <a class="featured" href="https://www.youtube.com/@iV1R3S" target="_blank" rel="noopener">
-      <div class="thumb"><div class="play"></div></div>
-      <p>new episode — watch now ♡</p>
-    </a>
+    <div id="latest" hidden>
+      <h2 class="section-label">latest video</h2>
+      <a class="featured" id="latest-link" href="#" target="_blank" rel="noopener">
+        <div class="thumb"><img id="latest-thumb" alt="Latest video thumbnail"><div class="play"></div></div>
+      </a>
+    </div>
 
     <h2 class="section-label">find me</h2>
     <nav class="links">
       <!-- Replace each href with your real link -->
       <a class="link" href="https://www.youtube.com/@iV1R3S" target="_blank" rel="noopener">
         <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg></span>
-        <span class="txt"><b>YouTube</b><small>tutorials · Virus</small></span>
+        <span class="txt"><b>YouTube</b></span>
         <span class="arrow">›</span>
       </a>
       <a class="link" href="https://www.tiktok.com/@iiv1r3s" target="_blank" rel="noopener">
         <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 18a3 3 0 1 1 0-6M9 18V4h4a4 4 0 0 0 4 4"/></svg></span>
-        <span class="txt"><b>TikTok</b><small>short clips</small></span>
+        <span class="txt"><b>TikTok</b></span>
         <span class="arrow">›</span>
       </a>
       <a class="link" href="https://www.instagram.com/iv1r3s/" target="_blank" rel="noopener">
         <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.6"/><circle cx="17" cy="7" r="1" fill="currentColor" stroke="none"/></svg></span>
-        <span class="txt"><b>Instagram</b><small>behind the scenes</small></span>
+        <span class="txt"><b>Instagram</b></span>
         <span class="arrow">›</span>
       </a>
       <a class="link" href="https://x.com/iiv1r3s" target="_blank" rel="noopener">
         <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg></span>
-        <span class="txt"><b>X</b><small>thoughts &amp; updates</small></span>
+        <span class="txt"><b>X</b></span>
         <span class="arrow">›</span>
       </a>
       <a class="link" href="https://www.twitch.tv/iv1r3s" target="_blank" rel="noopener">
         <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M5 4h15v10l-4 4h-4l-3 3v-3H5z"/><path d="M11 8v4M15 8v4" stroke-linecap="round"/></svg></span>
-        <span class="txt"><b>Twitch</b><small>live sessions</small></span>
+        <span class="txt"><b>Twitch</b></span>
         <span class="arrow">›</span>
       </a>
       <a class="link" href="https://github.com/V1R3S" target="_blank" rel="noopener">
         <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 8l-4 4 4 4M16 8l4 4-4 4M13.5 5l-3 14"/></svg></span>
-        <span class="txt"><b>GitHub</b><small>Khaled Alkhawaldeh · code &amp; projects</small></span>
+        <span class="txt"><b>GitHub</b></span>
         <span class="arrow">›</span>
       </a>
     </nav>
@@ -277,6 +283,18 @@
 </main>
 
 <script>
+  // ▶ LATEST VIDEO: paste the ID of your newest video between the quotes.
+  //   For https://www.youtube.com/watch?v=abc123XYZ the ID is abc123XYZ
+  //   Leave it empty ("") to hide the section.
+  var LATEST_VIDEO_ID = "";
+
+  (function () {
+    if (!LATEST_VIDEO_ID) return;
+    document.getElementById('latest-link').href = 'https://www.youtube.com/watch?v=' + LATEST_VIDEO_ID;
+    document.getElementById('latest-thumb').src = 'https://i.ytimg.com/vi/' + LATEST_VIDEO_ID + '/hqdefault.jpg';
+    document.getElementById('latest').hidden = false;
+  })();
+
   (function () {
     var box = document.getElementById('petals');
     if (!box) return;
